@@ -1,0 +1,197 @@
+# Příklady konfigurace Water Meter Card
+
+# ============================================
+# ZÁKLADNÍ KONFIGURACE
+# ============================================
+
+# Minimální konfigurace - pouze povinný parametr entity
+type: custom:water-meter-card
+entity: sensor.water_meter
+
+---
+
+# ============================================
+# PLNÁ KONFIGURACE
+# ============================================
+
+# Konfigurace se všemi dostupnými parametry
+type: custom:water-meter-card
+entity: sensor.water_meter
+title: Spotřeba vody - kuchyň
+k_factor: "0.25"
+serial: "ZC-122107"
+
+---
+
+# ============================================
+# PŘÍKLAD S MQTT SENZOREM
+# ============================================
+
+# 1. Nejprve přidejte do configuration.yaml:
+#
+# mqtt:
+#   sensor:
+#     - name: "Vodoměr studená voda"
+#       state_topic: "home/water/cold/total"
+#       unit_of_measurement: "m³"
+#       device_class: water
+#       state_class: total_increasing
+#       icon: mdi:water
+
+# 2. Pak použijte v Lovelace dashboard:
+type: custom:water-meter-card
+entity: sensor.vodomer_studena_voda
+title: Studená voda
+k_factor: "0.25"
+serial: "CW-2024-001"
+
+---
+
+# ============================================
+# PŘÍKLAD S TEMPLATE SENZOREM
+# ============================================
+
+# 1. Pokud máte pulse counter, vytvořte template senzor v configuration.yaml:
+#
+# template:
+#   - sensor:
+#       - name: "Spotřeba vody celkem"
+#         unique_id: water_consumption_total
+#         unit_of_measurement: "m³"
+#         device_class: water
+#         state_class: total_increasing
+#         state: >
+#           {{ (states('sensor.water_pulse_counter') | float / 1000) | round(3) }}
+
+# 2. Pak použijte v Lovelace:
+type: custom:water-meter-card
+entity: sensor.spotreba_vody_celkem
+title: Celková spotřeba
+k_factor: "0.25"
+
+---
+
+# ============================================
+# VÍCE VODOMĚRŮ NA DASHBOARDU
+# ============================================
+
+# Pomocí horizontal-stack můžete zobrazit více vodoměrů vedle sebe:
+type: horizontal-stack
+cards:
+  - type: custom:water-meter-card
+    entity: sensor.water_meter_cold
+    title: Studená voda
+    k_factor: "0.25"
+    serial: "CW-123456"
+
+  - type: custom:water-meter-card
+    entity: sensor.water_meter_hot
+    title: Teplá voda
+    k_factor: "0.25"
+    serial: "HW-123457"
+
+---
+
+# ============================================
+# S VERTICAL-STACK (SVISLÉ USPOŘÁDÁNÍ)
+# ============================================
+
+type: vertical-stack
+cards:
+  - type: custom:water-meter-card
+    entity: sensor.water_meter_bathroom
+    title: Koupelna
+    serial: "BT-001"
+
+  - type: custom:water-meter-card
+    entity: sensor.water_meter_kitchen
+    title: Kuchyň
+    serial: "KT-002"
+
+---
+
+# ============================================
+# S PODMÍNĚNÝM ZOBRAZENÍM
+# ============================================
+
+# Zobrazí kartu pouze když je spotřeba vyšší než 0
+type: conditional
+conditions:
+  - entity: sensor.water_meter
+    state_not: "0"
+card:
+  type: custom:water-meter-card
+  entity: sensor.water_meter
+  title: Aktivní spotřeba
+
+---
+
+# ============================================
+# INTEGRACE S UTILITY METER
+# ============================================
+
+# 1. Vytvořte utility meter pro denní/měsíční sledování v configuration.yaml:
+#
+# utility_meter:
+#   water_daily:
+#     source: sensor.water_meter
+#     cycle: daily
+#
+#   water_monthly:
+#     source: sensor.water_meter
+#     cycle: monthly
+#
+#   water_yearly:
+#     source: sensor.water_meter
+#     cycle: yearly
+
+# 2. Zobrazení všech metrik:
+type: vertical-stack
+cards:
+  - type: custom:water-meter-card
+    entity: sensor.water_meter
+    title: Celková spotřeba
+
+  - type: entities
+    title: Statistiky
+    entities:
+      - entity: sensor.water_daily
+        name: Dnes
+      - entity: sensor.water_monthly
+        name: Tento měsíc
+      - entity: sensor.water_yearly
+        name: Tento rok
+
+---
+
+# ============================================
+# POKROČILÁ INTEGRACE S ESPHome
+# ============================================
+
+# 1. ESPHome konfigurace (pro pulse counter):
+#
+# sensor:
+#   - platform: pulse_counter
+#     pin: GPIO12
+#     name: "Water Pulse Counter"
+#     unit_of_measurement: 'pulses/min'
+#     count_mode:
+#       rising_edge: INCREMENT
+#       falling_edge: DISABLE
+#     internal_filter: 13us
+#     update_interval: 5s
+#     total:
+#       name: "Water Total"
+#       unit_of_measurement: "m³"
+#       device_class: water
+#       state_class: total_increasing
+#       accuracy_decimals: 3
+#       filters:
+#         - multiply: 0.001  # Pokud jeden puls = 1 litr
+
+# 2. Použití v Lovelace:
+type: custom:water-meter-card
+entity: sensor.water_total
+title: Vodoměr (ESPHome)
+k_factor: "0.25"
+serial: "ESP-001"

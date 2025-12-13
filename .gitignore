@@ -1,0 +1,20 @@
+# Node modules
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Editor directories and files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Build files
+dist/
+build/
+
+# Temporary files
+*.tmp
+*.bak
