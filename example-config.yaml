@@ -21,6 +21,64 @@ title: Spotřeba vody - kuchyň
 meter_name: KUCHYŇ
 k_factor: "0.25"
 serial: "ZC-122107"
+size: medium
+use_theme: true
+
+---
+
+# ============================================
+# PŘÍKLADY VELIKOSTÍ
+# ============================================
+
+# Malá karta (70% - vhodná pro postranní panel)
+type: custom:water-meter-card
+entity: sensor.water_meter
+size: small
+title: Malý vodoměr
+
+---
+
+# Velká karta (130%)
+type: custom:water-meter-card
+entity: sensor.water_meter
+size: large
+title: Velký vodoměr
+
+---
+
+# Extra velká karta (160%)
+type: custom:water-meter-card
+entity: sensor.water_meter
+size: xlarge
+title: Extra velký vodoměr
+
+---
+
+# Vlastní velikost v pixelech
+type: custom:water-meter-card
+entity: sensor.water_meter
+size: 350
+title: Vlastní velikost
+
+---
+
+# ============================================
+# PŘÍKLADY S TÉMATY
+# ============================================
+
+# S tématem HA (výchozí) - automaticky použije barvy z aktivního tématu
+type: custom:water-meter-card
+entity: sensor.water_meter
+use_theme: true
+title: Barevné téma
+
+---
+
+# Bez tématu - klasická modrá barva
+type: custom:water-meter-card
+entity: sensor.water_meter
+use_theme: false
+title: Klasická modrá
 
 ---
 

@@ -11,6 +11,8 @@ Custom karta pro Home Assistant, která zobrazuje spotřebu vody a vypadá přes
 - ⚙️ **Rotační ciferníky** - 4 animované ciferníky pro desetinná místa (x1, x0.1, x0.01, x0.001)
 - 🎨 **Modrý rámeček** - Charakteristický modrý obal vodoměru
 - 🔧 **Konfigurovatelné** - K-faktor, sériové číslo, název
+- 📏 **Škálovatelná velikost** - Nastavitelná velikost (small, medium, large, xlarge, nebo vlastní)
+- 🌈 **Podpora témat** - Automaticky se přizpůsobí vašemu Home Assistant tématu
 - ⚡ **Automatické aktualizace** - Reaguje na změny senzoru v reálném čase
 
 ## Instalace
@@ -59,6 +61,8 @@ title: Spotřeba vody
 meter_name: Studená voda
 k_factor: "0.25"
 serial: "ZC-122107"
+size: medium
+use_theme: true
 ```
 
 ## Parametry
@@ -70,8 +74,43 @@ serial: "ZC-122107"
 | `meter_name` | string | Ne | "" | Vlastní označení vodoměru (zobrazuje se uvnitř kruhu nahoře) |
 | `k_factor` | string | Ne | "0.25" | K-faktor vodoměru |
 | `serial` | string | Ne | "ZC-122107" | Sériové číslo vodoměru |
+| `size` | string/number | Ne | "medium" | Velikost karty: "small" (70%), "medium" (100%), "large" (130%), "xlarge" (160%), nebo číslo v pixelech |
+| `use_theme` | boolean | Ne | true | Použít barvy z HA tématu (true) nebo výchozí modrou barvu (false) |
 
 ## Příklady použití
+
+### Různé velikosti
+
+```yaml
+# Malá karta (70%)
+type: custom:water-meter-card
+entity: sensor.water_meter
+size: small
+
+# Velká karta (130%)
+type: custom:water-meter-card
+entity: sensor.water_meter
+size: large
+
+# Vlastní velikost (v pixelech)
+type: custom:water-meter-card
+entity: sensor.water_meter
+size: 350
+```
+
+### S tématem / bez tématu
+
+```yaml
+# S tématem HA (výchozí) - přizpůsobí se barvám téma
+type: custom:water-meter-card
+entity: sensor.water_meter
+use_theme: true
+
+# Bez tématu - vždy modrá barva
+type: custom:water-meter-card
+entity: sensor.water_meter
+use_theme: false
+```
 
 ### S MQTT senzorem
 

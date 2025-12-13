@@ -26,28 +26,66 @@ class WaterMeterCard extends HTMLElement {
     const k_factor = this.config.k_factor || '0.25';
     const serial = this.config.serial || 'ZC-122107';
     const meter_name = this.config.meter_name || '';
+    const size = this.config.size || 'medium';
+    const use_theme = this.config.use_theme !== false;
+
+    // Calculate scale based on size
+    let scale = 1;
+    let cardSize = 280;
+
+    if (typeof size === 'number') {
+      cardSize = size;
+      scale = size / 280;
+    } else {
+      switch(size) {
+        case 'small':
+          scale = 0.7;
+          cardSize = 196;
+          break;
+        case 'medium':
+          scale = 1;
+          cardSize = 280;
+          break;
+        case 'large':
+          scale = 1.3;
+          cardSize = 364;
+          break;
+        case 'xlarge':
+          scale = 1.6;
+          cardSize = 448;
+          break;
+      }
+    }
 
     this.shadowRoot.innerHTML = `
       <style>
         :host {
           display: block;
           padding: 16px;
+          --card-background: ${use_theme ? 'var(--ha-card-background, var(--card-background-color, #ffffff))' : '#ffffff'};
+          --primary-text: ${use_theme ? 'var(--primary-text-color, #333)' : '#333'};
+          --secondary-text: ${use_theme ? 'var(--secondary-text-color, #666)' : '#666'};
+          --primary-color: ${use_theme ? 'var(--primary-color, #4a90e2)' : '#4a90e2'};
+          --accent-color: ${use_theme ? 'var(--accent-color, #e74c3c)' : '#e74c3c'};
+          --divider-color: ${use_theme ? 'var(--divider-color, #ccc)' : '#ccc'};
         }
 
         .water-meter-container {
           display: flex;
           flex-direction: column;
           align-items: center;
-          background: linear-gradient(145deg, #f0f0f0, #ffffff);
+          background: ${use_theme ? 'var(--card-background)' : 'linear-gradient(145deg, #f0f0f0, #ffffff)'};
           border-radius: 16px;
           padding: 20px;
-          box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+          box-shadow: ${use_theme ? 'var(--ha-card-box-shadow, 0 2px 4px rgba(0,0,0,0.1))' : '0 4px 6px rgba(0,0,0,0.1)'};
+          transform: scale(${scale});
+          transform-origin: top center;
         }
 
         .meter-title {
           font-size: 18px;
           font-weight: bold;
-          color: #333;
+          color: var(--primary-text);
           margin-bottom: 16px;
         }
 
@@ -55,12 +93,12 @@ class WaterMeterCard extends HTMLElement {
           position: relative;
           width: 280px;
           height: 280px;
-          background: linear-gradient(145deg, #e8e8e8, #ffffff);
+          background: ${use_theme ? 'var(--card-background)' : 'linear-gradient(145deg, #e8e8e8, #ffffff)'};
           border-radius: 50%;
-          border: 12px solid #4a90e2;
+          border: 12px solid var(--primary-color);
           box-shadow:
             inset 0 2px 8px rgba(0,0,0,0.15),
-            0 4px 12px rgba(74, 144, 226, 0.3);
+            0 4px 12px ${use_theme ? 'rgba(var(--rgb-primary-color, 74, 144, 226), 0.3)' : 'rgba(74, 144, 226, 0.3)'};
           display: flex;
           flex-direction: column;
           align-items: center;
@@ -71,7 +109,7 @@ class WaterMeterCard extends HTMLElement {
         .meter-inner {
           width: 100%;
           height: 100%;
-          background: radial-gradient(circle, #ffffff, #f5f5f5);
+          background: ${use_theme ? 'var(--card-background)' : 'radial-gradient(circle, #ffffff, #f5f5f5)'};
           border-radius: 50%;
           display: flex;
           flex-direction: column;
@@ -85,7 +123,7 @@ class WaterMeterCard extends HTMLElement {
           top: 35px;
           font-size: 13px;
           font-weight: bold;
-          color: #000;
+          color: var(--primary-text);
           text-align: center;
         }
 
@@ -96,7 +134,7 @@ class WaterMeterCard extends HTMLElement {
           justify-content: space-between;
           width: 85%;
           font-size: 10px;
-          color: #333;
+          color: var(--primary-text);
         }
 
         .k-factor {
@@ -105,7 +143,7 @@ class WaterMeterCard extends HTMLElement {
 
         .serial {
           font-size: 9px;
-          color: #666;
+          color: var(--secondary-text);
         }
 
         .main-display {
@@ -116,8 +154,8 @@ class WaterMeterCard extends HTMLElement {
           display: flex;
           align-items: center;
           justify-content: center;
-          background: white;
-          border: 2px solid #ccc;
+          background: ${use_theme ? 'var(--card-background)' : 'white'};
+          border: 2px solid var(--divider-color);
           border-radius: 8px;
           padding: 8px 12px;
           box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
@@ -131,8 +169,8 @@ class WaterMeterCard extends HTMLElement {
         .digit {
           width: 24px;
           height: 32px;
-          background: white;
-          border: 1px solid #999;
+          background: ${use_theme ? 'var(--card-background)' : 'white'};
+          border: 1px solid var(--divider-color);
           border-radius: 3px;
           display: flex;
           align-items: center;
@@ -140,14 +178,14 @@ class WaterMeterCard extends HTMLElement {
           font-size: 24px;
           font-weight: bold;
           font-family: 'Courier New', monospace;
-          color: #000;
+          color: var(--primary-text);
           box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
         }
 
         .unit {
           margin-left: 8px;
           font-size: 16px;
-          color: #333;
+          color: var(--primary-text);
           font-weight: bold;
         }
 
@@ -165,8 +203,8 @@ class WaterMeterCard extends HTMLElement {
           width: 45px;
           height: 45px;
           border-radius: 50%;
-          background: white;
-          border: 2px solid #666;
+          background: ${use_theme ? 'var(--card-background)' : 'white'};
+          border: 2px solid var(--secondary-text);
           box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
           display: flex;
           align-items: center;
@@ -198,7 +236,7 @@ class WaterMeterCard extends HTMLElement {
           position: absolute;
           width: 2px;
           height: 18px;
-          background: #e74c3c;
+          background: var(--accent-color);
           transform-origin: bottom center;
           bottom: 50%;
           left: 50%;
@@ -209,7 +247,7 @@ class WaterMeterCard extends HTMLElement {
         .sub-dial-value {
           font-size: 11px;
           font-weight: bold;
-          color: #333;
+          color: var(--primary-text);
           z-index: 1;
         }
 
@@ -217,7 +255,7 @@ class WaterMeterCard extends HTMLElement {
           position: absolute;
           bottom: -16px;
           font-size: 8px;
-          color: #e74c3c;
+          color: var(--accent-color);
           font-weight: bold;
           white-space: nowrap;
         }
@@ -226,7 +264,7 @@ class WaterMeterCard extends HTMLElement {
           position: absolute;
           width: 6px;
           height: 6px;
-          background: #e74c3c;
+          background: var(--accent-color);
           border-radius: 50%;
           top: 50%;
           left: 50%;
@@ -240,7 +278,7 @@ class WaterMeterCard extends HTMLElement {
           top: 50%;
           transform: translateY(-50%);
           font-size: 9px;
-          color: #333;
+          color: var(--primary-text);
           line-height: 1.4;
         }
 
@@ -250,7 +288,7 @@ class WaterMeterCard extends HTMLElement {
           top: 50%;
           transform: translateY(-50%);
           font-size: 9px;
-          color: #333;
+          color: var(--primary-text);
           line-height: 1.4;
           text-align: right;
         }
@@ -260,7 +298,7 @@ class WaterMeterCard extends HTMLElement {
           left: 15px;
           bottom: 70px;
           font-size: 8px;
-          color: #666;
+          color: var(--secondary-text);
         }
       </style>
 
@@ -386,7 +424,9 @@ class WaterMeterCard extends HTMLElement {
       title: "Spotřeba vody",
       meter_name: "",
       k_factor: "0.25",
-      serial: "ZC-122107"
+      serial: "ZC-122107",
+      size: "medium",
+      use_theme: true
     };
   }
 }
