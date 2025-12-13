@@ -110,7 +110,7 @@ class WaterMeterCard extends HTMLElement {
 
         .main-display {
           position: absolute;
-          top: 50%;
+          top: 38%;
           left: 50%;
           transform: translate(-50%, -50%);
           display: flex;
@@ -175,23 +175,23 @@ class WaterMeterCard extends HTMLElement {
         }
 
         .sub-dial:nth-child(1) {
-          bottom: 20px;
-          left: 25px;
+          bottom: 50px;
+          left: 35px;
         }
 
         .sub-dial:nth-child(2) {
-          bottom: 12px;
-          left: 75px;
+          bottom: 38px;
+          left: 85px;
         }
 
         .sub-dial:nth-child(3) {
-          bottom: 12px;
-          right: 75px;
+          bottom: 38px;
+          right: 85px;
         }
 
         .sub-dial:nth-child(4) {
-          bottom: 20px;
-          right: 25px;
+          bottom: 50px;
+          right: 35px;
         }
 
         .sub-dial-pointer {
