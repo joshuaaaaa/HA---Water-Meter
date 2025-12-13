@@ -25,6 +25,7 @@ class WaterMeterCard extends HTMLElement {
     const title = this.config.title || 'Spotřeba vody';
     const k_factor = this.config.k_factor || '0.25';
     const serial = this.config.serial || 'ZC-122107';
+    const meter_name = this.config.meter_name || '';
 
     this.shadowRoot.innerHTML = `
       <style>
@@ -79,6 +80,15 @@ class WaterMeterCard extends HTMLElement {
           padding: 20px;
         }
 
+        .meter-name {
+          position: absolute;
+          top: 35px;
+          font-size: 13px;
+          font-weight: bold;
+          color: #000;
+          text-align: center;
+        }
+
         .meter-top-info {
           position: absolute;
           top: 15px;
@@ -99,6 +109,10 @@ class WaterMeterCard extends HTMLElement {
         }
 
         .main-display {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -106,7 +120,6 @@ class WaterMeterCard extends HTMLElement {
           border: 2px solid #ccc;
           border-radius: 8px;
           padding: 8px 12px;
-          margin-top: 25px;
           box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
         }
 
@@ -139,15 +152,16 @@ class WaterMeterCard extends HTMLElement {
         }
 
         .sub-dials {
-          display: flex;
-          gap: 8px;
-          margin-top: 20px;
           position: absolute;
-          bottom: 25px;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          pointer-events: none;
         }
 
         .sub-dial {
-          position: relative;
+          position: absolute;
           width: 45px;
           height: 45px;
           border-radius: 50%;
@@ -157,6 +171,27 @@ class WaterMeterCard extends HTMLElement {
           display: flex;
           align-items: center;
           justify-content: center;
+          pointer-events: auto;
+        }
+
+        .sub-dial:nth-child(1) {
+          bottom: 20px;
+          left: 25px;
+        }
+
+        .sub-dial:nth-child(2) {
+          bottom: 12px;
+          left: 75px;
+        }
+
+        .sub-dial:nth-child(3) {
+          bottom: 12px;
+          right: 75px;
+        }
+
+        .sub-dial:nth-child(4) {
+          bottom: 20px;
+          right: 25px;
         }
 
         .sub-dial-pointer {
@@ -237,6 +272,8 @@ class WaterMeterCard extends HTMLElement {
               <span class="k-factor">K=${k_factor}</span>
               <span class="serial">${serial}</span>
             </div>
+
+            ${meter_name ? `<div class="meter-name">${meter_name}</div>` : ''}
 
             <div class="specs">
               <div>Q₃ 2,5</div>
@@ -347,6 +384,7 @@ class WaterMeterCard extends HTMLElement {
     return {
       entity: "sensor.water_meter",
       title: "Spotřeba vody",
+      meter_name: "",
       k_factor: "0.25",
       serial: "ZC-122107"
     };

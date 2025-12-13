@@ -18,6 +18,7 @@ entity: sensor.water_meter
 type: custom:water-meter-card
 entity: sensor.water_meter
 title: Spotřeba vody - kuchyň
+meter_name: KUCHYŇ
 k_factor: "0.25"
 serial: "ZC-122107"
 
@@ -42,6 +43,7 @@ serial: "ZC-122107"
 type: custom:water-meter-card
 entity: sensor.vodomer_studena_voda
 title: Studená voda
+meter_name: STUDENÁ
 k_factor: "0.25"
 serial: "CW-2024-001"
 
@@ -81,12 +83,14 @@ cards:
   - type: custom:water-meter-card
     entity: sensor.water_meter_cold
     title: Studená voda
+    meter_name: STUDENÁ
     k_factor: "0.25"
     serial: "CW-123456"
 
   - type: custom:water-meter-card
     entity: sensor.water_meter_hot
     title: Teplá voda
+    meter_name: TEPLÁ
     k_factor: "0.25"
     serial: "HW-123457"
 
@@ -101,11 +105,13 @@ cards:
   - type: custom:water-meter-card
     entity: sensor.water_meter_bathroom
     title: Koupelna
+    meter_name: KOUPELNA
     serial: "BT-001"
 
   - type: custom:water-meter-card
     entity: sensor.water_meter_kitchen
     title: Kuchyň
+    meter_name: KUCHYŇ
     serial: "KT-002"
 
 ---

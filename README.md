@@ -56,6 +56,7 @@ entity: sensor.water_meter
 type: custom:water-meter-card
 entity: sensor.water_meter
 title: Spotřeba vody
+meter_name: Studená voda
 k_factor: "0.25"
 serial: "ZC-122107"
 ```
@@ -65,7 +66,8 @@ serial: "ZC-122107"
 | Parametr | Typ | Povinný | Výchozí | Popis |
 |----------|-----|---------|---------|-------|
 | `entity` | string | Ano | - | ID entity senzoru vodoměru |
-| `title` | string | Ne | "Spotřeba vody" | Název karty |
+| `title` | string | Ne | "Spotřeba vody" | Název karty (zobrazuje se nad kruhem) |
+| `meter_name` | string | Ne | "" | Vlastní označení vodoměru (zobrazuje se uvnitř kruhu nahoře) |
 | `k_factor` | string | Ne | "0.25" | K-faktor vodoměru |
 | `serial` | string | Ne | "ZC-122107" | Sériové číslo vodoměru |
 
@@ -89,6 +91,7 @@ mqtt:
 type: custom:water-meter-card
 entity: sensor.vodomer
 title: Studená voda
+meter_name: KUCHYŇ
 k_factor: "0.25"
 serial: "CW-123456"
 ```
