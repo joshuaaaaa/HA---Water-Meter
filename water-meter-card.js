@@ -9,7 +9,11 @@ class WaterMeterCard extends HTMLElement {
       throw new Error('Please define a water sensor entity');
     }
     this.config = config;
-    this.render();
+
+    // Force re-render when config changes
+    if (this.shadowRoot.innerHTML) {
+      this.render();
+    }
   }
 
   set hass(hass) {
@@ -573,7 +577,7 @@ window.customCards.push({
 
 // Announce the card to Home Assistant
 console.info(
-  '%c  WATER-METER-CARD  %c Version 1.0.0 ',
+  '%c  WATER-METER-CARD  %c Version 1.1.0 ',
   'color: white; background: #4a90e2; font-weight: 700;',
   'color: #4a90e2; background: white; font-weight: 700;'
 );
