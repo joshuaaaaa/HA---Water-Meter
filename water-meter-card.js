@@ -210,10 +210,10 @@ class WaterMeterCard extends HTMLElement {
 
         .meter-top-info {
           position: absolute;
-          top: ${Math.round(15 * scale)}px;
+          top: ${Math.round(20 * scale)}px;
           display: flex;
           justify-content: space-between;
-          width: 85%;
+          width: 80%;
           font-size: ${fontSize.topInfo}px;
           color: var(--primary-text);
         }
@@ -294,23 +294,23 @@ class WaterMeterCard extends HTMLElement {
         }
 
         .sub-dial:nth-child(1) {
-          bottom: ${Math.round(50 * scale)}px;
-          left: ${Math.round(35 * scale)}px;
+          bottom: ${Math.round(60 * scale)}px;
+          left: ${Math.round(40 * scale)}px;
         }
 
         .sub-dial:nth-child(2) {
-          bottom: ${Math.round(38 * scale)}px;
-          left: ${Math.round(85 * scale)}px;
+          bottom: ${Math.round(48 * scale)}px;
+          left: ${Math.round(90 * scale)}px;
         }
 
         .sub-dial:nth-child(3) {
-          bottom: ${Math.round(38 * scale)}px;
-          right: ${Math.round(85 * scale)}px;
+          bottom: ${Math.round(48 * scale)}px;
+          right: ${Math.round(90 * scale)}px;
         }
 
         .sub-dial:nth-child(4) {
-          bottom: ${Math.round(50 * scale)}px;
-          right: ${Math.round(35 * scale)}px;
+          bottom: ${Math.round(60 * scale)}px;
+          right: ${Math.round(40 * scale)}px;
         }
 
         .sub-dial-pointer {
@@ -334,7 +334,9 @@ class WaterMeterCard extends HTMLElement {
 
         .sub-dial-label {
           position: absolute;
-          bottom: -${Math.round(16 * scale)}px;
+          top: ${Math.round(50 * scale)}px;
+          left: 50%;
+          transform: translateX(-50%);
           font-size: ${fontSize.subDialLabel}px;
           color: var(--accent-color);
           font-weight: bold;
@@ -353,9 +355,36 @@ class WaterMeterCard extends HTMLElement {
           z-index: 2;
         }
 
+        .sub-dial-markers {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          top: 0;
+          left: 0;
+        }
+
+        .sub-dial-marker {
+          position: absolute;
+          font-size: ${Math.round(7 * scale)}px;
+          color: var(--secondary-text);
+          font-weight: bold;
+          transform-origin: center;
+        }
+
+        .sub-dial-marker-0 { top: 8%; left: 50%; transform: translateX(-50%); }
+        .sub-dial-marker-1 { top: 15%; right: 20%; }
+        .sub-dial-marker-2 { top: 30%; right: 10%; }
+        .sub-dial-marker-3 { top: 50%; right: 8%; transform: translateY(-50%); }
+        .sub-dial-marker-4 { bottom: 30%; right: 10%; }
+        .sub-dial-marker-5 { bottom: 15%; right: 20%; }
+        .sub-dial-marker-6 { bottom: 8%; left: 50%; transform: translateX(-50%); }
+        .sub-dial-marker-7 { bottom: 15%; left: 20%; }
+        .sub-dial-marker-8 { bottom: 30%; left: 10%; }
+        .sub-dial-marker-9 { top: 50%; left: 8%; transform: translateY(-50%); }
+
         .specs {
           position: absolute;
-          left: ${Math.round(15 * scale)}px;
+          left: ${Math.round(20 * scale)}px;
           top: 50%;
           transform: translateY(-50%);
           font-size: ${fontSize.specs}px;
@@ -365,7 +394,7 @@ class WaterMeterCard extends HTMLElement {
 
         .specs-right {
           position: absolute;
-          right: ${Math.round(15 * scale)}px;
+          right: ${Math.round(20 * scale)}px;
           top: 50%;
           transform: translateY(-50%);
           font-size: ${fontSize.specs}px;
@@ -376,8 +405,8 @@ class WaterMeterCard extends HTMLElement {
 
         .iso-text {
           position: absolute;
-          left: ${Math.round(15 * scale)}px;
-          bottom: ${Math.round(70 * scale)}px;
+          left: ${Math.round(20 * scale)}px;
+          bottom: ${Math.round(80 * scale)}px;
           font-size: ${fontSize.iso}px;
           color: var(--secondary-text);
         }
@@ -412,21 +441,37 @@ class WaterMeterCard extends HTMLElement {
 
             <div class="sub-dials">
               <div class="sub-dial">
+                <div class="sub-dial-markers">
+                  <span class="sub-dial-marker sub-dial-marker-0">0</span>
+                  <span class="sub-dial-marker sub-dial-marker-5">5</span>
+                </div>
                 <div class="sub-dial-pointer" id="dial-0001"></div>
                 <div class="sub-dial-center"></div>
                 <div class="sub-dial-label">x0.001</div>
               </div>
               <div class="sub-dial">
+                <div class="sub-dial-markers">
+                  <span class="sub-dial-marker sub-dial-marker-0">0</span>
+                  <span class="sub-dial-marker sub-dial-marker-5">5</span>
+                </div>
                 <div class="sub-dial-pointer" id="dial-001"></div>
                 <div class="sub-dial-center"></div>
                 <div class="sub-dial-label">x0.01</div>
               </div>
               <div class="sub-dial">
+                <div class="sub-dial-markers">
+                  <span class="sub-dial-marker sub-dial-marker-0">0</span>
+                  <span class="sub-dial-marker sub-dial-marker-5">5</span>
+                </div>
                 <div class="sub-dial-pointer" id="dial-01"></div>
                 <div class="sub-dial-center"></div>
                 <div class="sub-dial-label">x0.1</div>
               </div>
               <div class="sub-dial">
+                <div class="sub-dial-markers">
+                  <span class="sub-dial-marker sub-dial-marker-0">0</span>
+                  <span class="sub-dial-marker sub-dial-marker-5">5</span>
+                </div>
                 <div class="sub-dial-pointer" id="dial-1"></div>
                 <div class="sub-dial-center"></div>
                 <div class="sub-dial-label">x1</div>
