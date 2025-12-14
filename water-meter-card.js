@@ -18,7 +18,63 @@ class WaterMeterCard extends HTMLElement {
   }
 
   getCardSize() {
-    return 4;
+    const size = this.config?.size || 'medium';
+
+    // Return height in grid units (1 unit = 50px)
+    if (typeof size === 'number') {
+      // Custom pixel size - calculate grid units
+      // Card height is approximately size + 100px for title and padding
+      return Math.ceil((size + 100) / 50);
+    }
+
+    switch(size) {
+      case 'small':
+        return 5;   // ~250px (196 + 54)
+      case 'medium':
+        return 7;   // ~350px (280 + 70)
+      case 'large':
+        return 9;   // ~450px (364 + 86)
+      case 'xlarge':
+        return 11;  // ~550px (448 + 102)
+      default:
+        return 7;
+    }
+  }
+
+  getGridOptions() {
+    const size = this.config?.size || 'medium';
+
+    // For sections view - each section has 12 columns
+    let columns = 12;
+    let rows = 2;
+
+    switch(size) {
+      case 'small':
+        columns = 6;
+        rows = 1;
+        break;
+      case 'medium':
+        columns = 8;
+        rows = 2;
+        break;
+      case 'large':
+        columns = 10;
+        rows = 2;
+        break;
+      case 'xlarge':
+        columns = 12;
+        rows = 3;
+        break;
+    }
+
+    return {
+      columns: columns,
+      rows: rows,
+      min_columns: Math.max(4, Math.floor(columns * 0.7)),
+      max_columns: 12,
+      min_rows: 1,
+      max_rows: rows + 1
+    };
   }
 
   render() {
@@ -29,33 +85,60 @@ class WaterMeterCard extends HTMLElement {
     const size = this.config.size || 'medium';
     const use_theme = this.config.use_theme !== false;
 
-    // Calculate scale based on size
+    // Calculate actual size in pixels
+    let meterSize = 280;
     let scale = 1;
-    let cardSize = 280;
 
     if (typeof size === 'number') {
-      cardSize = size;
+      meterSize = size;
       scale = size / 280;
     } else {
       switch(size) {
         case 'small':
+          meterSize = 196;
           scale = 0.7;
-          cardSize = 196;
           break;
         case 'medium':
+          meterSize = 280;
           scale = 1;
-          cardSize = 280;
           break;
         case 'large':
+          meterSize = 364;
           scale = 1.3;
-          cardSize = 364;
           break;
         case 'xlarge':
+          meterSize = 448;
           scale = 1.6;
-          cardSize = 448;
           break;
       }
     }
+
+    // Calculate all scaled dimensions
+    const borderWidth = Math.round(12 * scale);
+    const fontSize = {
+      title: Math.round(18 * scale),
+      meterName: Math.round(13 * scale),
+      topInfo: Math.round(10 * scale),
+      serial: Math.round(9 * scale),
+      digit: Math.round(24 * scale),
+      unit: Math.round(16 * scale),
+      specs: Math.round(9 * scale),
+      iso: Math.round(8 * scale),
+      subDialLabel: Math.round(8 * scale),
+      subDialValue: Math.round(11 * scale)
+    };
+
+    const spacing = {
+      containerPadding: Math.round(20 * scale),
+      titleMargin: Math.round(16 * scale),
+      meterPadding: Math.round(20 * scale),
+      digitWidth: Math.round(24 * scale),
+      digitHeight: Math.round(32 * scale),
+      digitGap: Math.round(2 * scale),
+      subDialSize: Math.round(45 * scale),
+      pointerHeight: Math.round(18 * scale),
+      centerDotSize: Math.round(6 * scale)
+    };
 
     this.shadowRoot.innerHTML = `
       <style>
@@ -75,27 +158,25 @@ class WaterMeterCard extends HTMLElement {
           flex-direction: column;
           align-items: center;
           background: ${use_theme ? 'var(--card-background)' : 'linear-gradient(145deg, #f0f0f0, #ffffff)'};
-          border-radius: 16px;
-          padding: 20px;
+          border-radius: ${Math.round(16 * scale)}px;
+          padding: ${spacing.containerPadding}px;
           box-shadow: ${use_theme ? 'var(--ha-card-box-shadow, 0 2px 4px rgba(0,0,0,0.1))' : '0 4px 6px rgba(0,0,0,0.1)'};
-          transform: scale(${scale});
-          transform-origin: top center;
         }
 
         .meter-title {
-          font-size: 18px;
+          font-size: ${fontSize.title}px;
           font-weight: bold;
           color: var(--primary-text);
-          margin-bottom: 16px;
+          margin-bottom: ${spacing.titleMargin}px;
         }
 
         .meter-face {
           position: relative;
-          width: 280px;
-          height: 280px;
+          width: ${meterSize}px;
+          height: ${meterSize}px;
           background: ${use_theme ? 'var(--card-background)' : 'linear-gradient(145deg, #e8e8e8, #ffffff)'};
           border-radius: 50%;
-          border: 12px solid var(--primary-color);
+          border: ${borderWidth}px solid var(--primary-color);
           box-shadow:
             inset 0 2px 8px rgba(0,0,0,0.15),
             0 4px 12px ${use_theme ? 'rgba(var(--rgb-primary-color, 74, 144, 226), 0.3)' : 'rgba(74, 144, 226, 0.3)'};
@@ -115,13 +196,13 @@ class WaterMeterCard extends HTMLElement {
           flex-direction: column;
           align-items: center;
           justify-content: center;
-          padding: 20px;
+          padding: ${spacing.meterPadding}px;
         }
 
         .meter-name {
           position: absolute;
-          top: 35px;
-          font-size: 13px;
+          top: ${Math.round(35 * scale)}px;
+          font-size: ${fontSize.meterName}px;
           font-weight: bold;
           color: var(--primary-text);
           text-align: center;
@@ -129,11 +210,11 @@ class WaterMeterCard extends HTMLElement {
 
         .meter-top-info {
           position: absolute;
-          top: 15px;
+          top: ${Math.round(15 * scale)}px;
           display: flex;
           justify-content: space-between;
           width: 85%;
-          font-size: 10px;
+          font-size: ${fontSize.topInfo}px;
           color: var(--primary-text);
         }
 
@@ -142,7 +223,7 @@ class WaterMeterCard extends HTMLElement {
         }
 
         .serial {
-          font-size: 9px;
+          font-size: ${fontSize.serial}px;
           color: var(--secondary-text);
         }
 
@@ -155,27 +236,27 @@ class WaterMeterCard extends HTMLElement {
           align-items: center;
           justify-content: center;
           background: ${use_theme ? 'var(--card-background)' : 'white'};
-          border: 2px solid var(--divider-color);
-          border-radius: 8px;
-          padding: 8px 12px;
+          border: ${Math.max(1, Math.round(2 * scale))}px solid var(--divider-color);
+          border-radius: ${Math.round(8 * scale)}px;
+          padding: ${Math.round(8 * scale)}px ${Math.round(12 * scale)}px;
           box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
         }
 
         .digit-container {
           display: flex;
-          gap: 2px;
+          gap: ${spacing.digitGap}px;
         }
 
         .digit {
-          width: 24px;
-          height: 32px;
+          width: ${spacing.digitWidth}px;
+          height: ${spacing.digitHeight}px;
           background: ${use_theme ? 'var(--card-background)' : 'white'};
           border: 1px solid var(--divider-color);
-          border-radius: 3px;
+          border-radius: ${Math.round(3 * scale)}px;
           display: flex;
           align-items: center;
           justify-content: center;
-          font-size: 24px;
+          font-size: ${fontSize.digit}px;
           font-weight: bold;
           font-family: 'Courier New', monospace;
           color: var(--primary-text);
@@ -183,8 +264,8 @@ class WaterMeterCard extends HTMLElement {
         }
 
         .unit {
-          margin-left: 8px;
-          font-size: 16px;
+          margin-left: ${Math.round(8 * scale)}px;
+          font-size: ${fontSize.unit}px;
           color: var(--primary-text);
           font-weight: bold;
         }
@@ -200,11 +281,11 @@ class WaterMeterCard extends HTMLElement {
 
         .sub-dial {
           position: absolute;
-          width: 45px;
-          height: 45px;
+          width: ${spacing.subDialSize}px;
+          height: ${spacing.subDialSize}px;
           border-radius: 50%;
           background: ${use_theme ? 'var(--card-background)' : 'white'};
-          border: 2px solid var(--secondary-text);
+          border: ${Math.max(1, Math.round(2 * scale))}px solid var(--secondary-text);
           box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
           display: flex;
           align-items: center;
@@ -213,39 +294,39 @@ class WaterMeterCard extends HTMLElement {
         }
 
         .sub-dial:nth-child(1) {
-          bottom: 50px;
-          left: 35px;
+          bottom: ${Math.round(50 * scale)}px;
+          left: ${Math.round(35 * scale)}px;
         }
 
         .sub-dial:nth-child(2) {
-          bottom: 38px;
-          left: 85px;
+          bottom: ${Math.round(38 * scale)}px;
+          left: ${Math.round(85 * scale)}px;
         }
 
         .sub-dial:nth-child(3) {
-          bottom: 38px;
-          right: 85px;
+          bottom: ${Math.round(38 * scale)}px;
+          right: ${Math.round(85 * scale)}px;
         }
 
         .sub-dial:nth-child(4) {
-          bottom: 50px;
-          right: 35px;
+          bottom: ${Math.round(50 * scale)}px;
+          right: ${Math.round(35 * scale)}px;
         }
 
         .sub-dial-pointer {
           position: absolute;
-          width: 2px;
-          height: 18px;
+          width: ${Math.max(1, Math.round(2 * scale))}px;
+          height: ${spacing.pointerHeight}px;
           background: var(--accent-color);
           transform-origin: bottom center;
           bottom: 50%;
           left: 50%;
-          margin-left: -1px;
+          margin-left: -${Math.max(1, Math.round(1 * scale))}px;
           transition: transform 0.3s ease;
         }
 
         .sub-dial-value {
-          font-size: 11px;
+          font-size: ${fontSize.subDialValue}px;
           font-weight: bold;
           color: var(--primary-text);
           z-index: 1;
@@ -253,8 +334,8 @@ class WaterMeterCard extends HTMLElement {
 
         .sub-dial-label {
           position: absolute;
-          bottom: -16px;
-          font-size: 8px;
+          bottom: -${Math.round(16 * scale)}px;
+          font-size: ${fontSize.subDialLabel}px;
           color: var(--accent-color);
           font-weight: bold;
           white-space: nowrap;
@@ -262,8 +343,8 @@ class WaterMeterCard extends HTMLElement {
 
         .sub-dial-center {
           position: absolute;
-          width: 6px;
-          height: 6px;
+          width: ${spacing.centerDotSize}px;
+          height: ${spacing.centerDotSize}px;
           background: var(--accent-color);
           border-radius: 50%;
           top: 50%;
@@ -274,20 +355,20 @@ class WaterMeterCard extends HTMLElement {
 
         .specs {
           position: absolute;
-          left: 15px;
+          left: ${Math.round(15 * scale)}px;
           top: 50%;
           transform: translateY(-50%);
-          font-size: 9px;
+          font-size: ${fontSize.specs}px;
           color: var(--primary-text);
           line-height: 1.4;
         }
 
         .specs-right {
           position: absolute;
-          right: 15px;
+          right: ${Math.round(15 * scale)}px;
           top: 50%;
           transform: translateY(-50%);
-          font-size: 9px;
+          font-size: ${fontSize.specs}px;
           color: var(--primary-text);
           line-height: 1.4;
           text-align: right;
@@ -295,9 +376,9 @@ class WaterMeterCard extends HTMLElement {
 
         .iso-text {
           position: absolute;
-          left: 15px;
-          bottom: 70px;
-          font-size: 8px;
+          left: ${Math.round(15 * scale)}px;
+          bottom: ${Math.round(70 * scale)}px;
+          font-size: ${fontSize.iso}px;
           color: var(--secondary-text);
         }
       </style>
