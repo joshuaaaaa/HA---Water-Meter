@@ -1,38 +1,40 @@
-# Water Meter Card pro Home Assistant
+# Water Meter Card for Home Assistant
 
-Custom karta pro Home Assistant, která zobrazuje spotřebu vody a vypadá přesně jako skutečný vodoměr.
+A custom card for Home Assistant that displays water consumption and looks exactly like a real water meter.
 
 ![Water Meter Card](preview.png)
 
-## Funkce
+## ✨ Features
 
-- 🎯 **Realistický design** - Vypadá jako skutečný mechanický vodoměr
-- 📊 **Hlavní displej** - Zobrazuje celkovou spotřebu vody v m³
-- ⚙️ **Rotační ciferníky** - 4 animované ciferníky pro desetinná místa (x1, x0.1, x0.01, x0.001)
-- 🎨 **Modrý rámeček** - Charakteristický modrý obal vodoměru
-- 🔧 **Konfigurovatelné** - K-faktor, sériové číslo, název
-- 📏 **Škálovatelná velikost** - Nastavitelná velikost (small, medium, large, xlarge, nebo vlastní)
-- 🌈 **Podpora témat** - Automaticky se přizpůsobí vašemu Home Assistant tématu
-- ⚡ **Automatické aktualizace** - Reaguje na změny senzoru v reálném čase
+- 🎯 **Realistic design** - Looks like a real mechanical water meter
+- 📊 **Main display** - Shows total water consumption in m³ (5 digits)
+- ⚙️ **Rotating dials** - 4 functional animated dials with pointers (x1, x0.1, x0.01, x0.001)
+- 🔢 **Number markers** - Dials have 0 and 5 markers for better readability
+- 🎨 **Blue frame** - Characteristic blue housing of water meter
+- 🔧 **Configurable** - K-factor, serial number, custom name
+- 📏 **Scalable size** - small, medium, large, xlarge, or custom in pixels
+- 🌈 **HA theme support** - Automatically adapts to your Home Assistant theme
+- 📐 **HA compliant** - Supports getCardSize() and getGridOptions() per HA standards
+- ⚡ **Auto updates** - Responds to sensor changes in real-time
 
-## Instalace
+## 📦 Installation
 
-### HACS (Doporučeno)
+### HACS (Recommended)
 
-1. Otevřete HACS v Home Assistant
-2. Klikněte na "Frontend"
-3. Klikněte na ikonu menu (tři tečky) v pravém horním rohu
-4. Vyberte "Custom repositories"
-5. Přidejte URL tohoto repozitáře
-6. Vyberte kategorii "Lovelace"
-7. Klikněte na "Add"
-8. Najděte "Water Meter Card" v seznamu a nainstalujte
+1. Open HACS in Home Assistant
+2. Click on "Frontend"
+3. Click the menu icon (three dots) in the top right corner
+4. Select "Custom repositories"
+5. Add this repository URL
+6. Select category "Lovelace"
+7. Click "Add"
+8. Find "Water Meter Card" in the list and install
 
-### Ruční instalace
+### Manual Installation
 
-1. Stáhněte soubor `water-meter-card.js`
-2. Zkopírujte ho do složky `config/www/` ve vaší instalaci Home Assistant
-3. Přidejte následující do `configuration.yaml`:
+1. Download the `water-meter-card.js` file
+2. Copy it to the `config/www/` folder in your Home Assistant installation
+3. Add the following to `configuration.yaml`:
 
 ```yaml
 lovelace:
@@ -41,85 +43,98 @@ lovelace:
       type: module
 ```
 
-4. Restartujte Home Assistant
+4. Restart Home Assistant
+5. Clear browser cache (Ctrl+F5)
 
-## Konfigurace
+## ⚙️ Configuration
 
-### Minimální konfigurace
+### Minimal configuration
 
 ```yaml
 type: custom:water-meter-card
 entity: sensor.water_meter
 ```
 
-### Plná konfigurace
+### Full configuration
 
 ```yaml
 type: custom:water-meter-card
 entity: sensor.water_meter
-title: Spotřeba vody
-meter_name: Studená voda
+title: Water Consumption
+meter_name: KITCHEN
 k_factor: "0.25"
 serial: "ZC-122107"
 size: medium
 use_theme: true
 ```
 
-## Parametry
+## 📋 Parameters
 
-| Parametr | Typ | Povinný | Výchozí | Popis |
-|----------|-----|---------|---------|-------|
-| `entity` | string | Ano | - | ID entity senzoru vodoměru |
-| `title` | string | Ne | "Spotřeba vody" | Název karty (zobrazuje se nad kruhem) |
-| `meter_name` | string | Ne | "" | Vlastní označení vodoměru (zobrazuje se uvnitř kruhu nahoře) |
-| `k_factor` | string | Ne | "0.25" | K-faktor vodoměru |
-| `serial` | string | Ne | "ZC-122107" | Sériové číslo vodoměru |
-| `size` | string/number | Ne | "medium" | Velikost karty: "small" (70%), "medium" (100%), "large" (130%), "xlarge" (160%), nebo číslo v pixelech |
-| `use_theme` | boolean | Ne | true | Použít barvy z HA tématu (true) nebo výchozí modrou barvu (false) |
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `entity` | string | ✅ Yes | - | Water meter sensor entity ID |
+| `title` | string | No | "Spotřeba vody" | Card title (displayed above circle) |
+| `meter_name` | string | No | "" | Custom meter designation (displayed inside circle at top) |
+| `k_factor` | string | No | "0.25" | Water meter K-factor (displayed in circle) |
+| `serial` | string | No | "ZC-122107" | Serial number (displayed in circle) |
+| `size` | string/number | No | "medium" | Size: "small", "medium", "large", "xlarge", or number in px |
+| `use_theme` | boolean | No | true | Use HA theme colors (true) or blue (false) |
 
-## Příklady použití
+### Sizes
 
-### Různé velikosti
+| Size | Diameter | Card Height | HA Grid | Use Case |
+|------|----------|-------------|---------|----------|
+| `small` | 196px | ~250px (5 units) | 6 columns | Sidebar panel |
+| `medium` | 280px | ~350px (7 units) | 8 columns | Default |
+| `large` | 364px | ~450px (9 units) | 10 columns | Main dashboard |
+| `xlarge` | 448px | ~550px (11 units) | 12 columns | Large displays |
+| `350` | 350px | ~450px | Custom | Custom size |
+
+## 💡 Usage Examples
+
+### Different sizes
 
 ```yaml
-# Malá karta (70%)
+# Small card for sidebar
 type: custom:water-meter-card
 entity: sensor.water_meter
 size: small
+title: Water
 
-# Velká karta (130%)
+# Large card for main dashboard
 type: custom:water-meter-card
 entity: sensor.water_meter
 size: large
+meter_name: HOUSEHOLD
 
-# Vlastní velikost (v pixelech)
+# Custom size
 type: custom:water-meter-card
 entity: sensor.water_meter
 size: 350
 ```
 
-### S tématem / bez tématu
+### With / without theme
 
 ```yaml
-# S tématem HA (výchozí) - přizpůsobí se barvám téma
+# With HA theme (adapts to colors)
 type: custom:water-meter-card
 entity: sensor.water_meter
 use_theme: true
 
-# Bez tématu - vždy modrá barva
+# Classic blue color
 type: custom:water-meter-card
 entity: sensor.water_meter
 use_theme: false
 ```
 
-### S MQTT senzorem
+### With MQTT sensor
 
 ```yaml
 # configuration.yaml
 mqtt:
   sensor:
-    - name: "Vodoměr"
-      state_topic: "home/water/total"
+    - name: "Cold Water Meter"
+      state_topic: "home/water/cold/total"
       unit_of_measurement: "m³"
       device_class: water
       state_class: total_increasing
@@ -128,23 +143,23 @@ mqtt:
 ```yaml
 # ui-lovelace.yaml
 type: custom:water-meter-card
-entity: sensor.vodomer
-title: Studená voda
-meter_name: KUCHYŇ
+entity: sensor.cold_water_meter
+title: Cold Water
+meter_name: COLD
 k_factor: "0.25"
-serial: "CW-123456"
+serial: "CW-2024-001"
 ```
 
-### S template senzorem
+### With template sensor
 
 ```yaml
 # configuration.yaml
 template:
   - sensor:
-      - name: "Celková spotřeba vody"
+      - name: "Total Water Consumption"
         unit_of_measurement: "m³"
         state: >
-          {{ states('sensor.water_pulse_counter') | float / 1000 }}
+          {{ (states('sensor.water_pulse_counter') | float / 1000) | round(3) }}
         device_class: water
         state_class: total_increasing
 ```
@@ -152,41 +167,159 @@ template:
 ```yaml
 # ui-lovelace.yaml
 type: custom:water-meter-card
-entity: sensor.celkova_spotreba_vody
+entity: sensor.total_water_consumption
+meter_name: TOTAL
 ```
 
-## Kompatibilita
+### Multiple meters
 
-- Home Assistant 2021.12+
-- Funguje s jakýmkoliv senzorem, který vrací číselnou hodnotu
-- Nejlépe s `device_class: water` a `state_class: total_increasing`
+```yaml
+# Side by side
+type: horizontal-stack
+cards:
+  - type: custom:water-meter-card
+    entity: sensor.water_meter_cold
+    title: Cold Water
+    meter_name: COLD
+    size: small
 
-## Tipy
+  - type: custom:water-meter-card
+    entity: sensor.water_meter_hot
+    title: Hot Water
+    meter_name: HOT
+    size: small
+```
 
-1. **Jednotky**: Karta očekává hodnoty v m³ (metrech krychlových)
-2. **Desetinná místa**: Karta zobrazuje 3 desetinná místa
-3. **Animace**: Rotační ciferníky se plynule otáčejí při změně hodnoty
-4. **Responzivní**: Karta se automaticky přizpůsobuje šířce kontejneru
+### With utility meter
 
-## Ukázka
+```yaml
+# configuration.yaml
+utility_meter:
+  water_daily:
+    source: sensor.water_meter
+    cycle: daily
 
-Karta zobrazuje:
-- **Hlavní displej**: 5 číslic pro celkovou spotřebu (např. 00012 m³)
-- **4 rotační ciferníky**:
-  - x1 (jednotky)
-  - x0.1 (desetiny)
-  - x0.01 (setiny)
-  - x0.001 (tisíciny)
-- **Technické údaje**: K-faktor, sériové číslo, ISO norma, tlak
+  water_monthly:
+    source: sensor.water_meter
+    cycle: monthly
+```
 
-## Podpora
+```yaml
+# ui-lovelace.yaml
+type: vertical-stack
+cards:
+  - type: custom:water-meter-card
+    entity: sensor.water_meter
+    title: Total Consumption
+    size: large
 
-Pokud najdete chybu nebo máte návrh na vylepšení, otevřete issue na GitHubu.
+  - type: entities
+    title: Statistics
+    entities:
+      - entity: sensor.water_daily
+        name: Today
+      - entity: sensor.water_monthly
+        name: This Month
+```
 
-## Licence
+## 🎨 Card Appearance
+
+```
+┌─────────────────────────┐
+│   Water Consumption     │  ← title
+└─────────────────────────┘
+    ╔═══════════════╗
+    ║ K=0.25    SN  ║  ← K-factor & serial number
+    ║    KITCHEN    ║  ← meter_name (optional)
+    ║               ║
+    ║Q₃ 2.5   1.6MPa║  ← Specifications
+    ║               ║
+    ║  [00078 m³]   ║  ← Main display (5 digits)
+    ║               ║
+    ║   ╭─╮  ╭─╮    ║
+    ║ 0 │↑│0 │↗│ 5  ║  ← Dials with pointers & markers
+    ║   ╰─╯  ╰─╯    ║
+    ║ x0.001 x0.01  ║  ← Dial labels
+    ║ ISO4064       ║
+    ╚═══════════════╝
+```
+
+## 🔍 How Dials Work
+
+Dials display decimal places of the value:
+
+**Example: 12.753 m³**
+
+- **Main display**: `00012` m³
+- **x1 dial**: Pointer points to `2` (ones)
+- **x0.1 dial**: Pointer points to `7` (tenths)
+- **x0.01 dial**: Pointer points to `5` (hundredths)
+- **x0.001 dial**: Pointer points to `3` (thousandths)
+
+Each dial has **0** (top) and **5** (bottom) markers for easier reading.
+
+## 🌈 Theme Support
+
+The card supports Home Assistant themes:
+
+| Color | HA Variable | Usage |
+|-------|-------------|-------|
+| Blue circle | `--primary-color` | Main circle color |
+| Red pointers | `--accent-color` | Pointers and markers |
+| Text | `--primary-text-color` | Main text |
+| Gray text | `--secondary-text-color` | Secondary text |
+| Background | `--card-background` | Card background |
+| Borders | `--divider-color` | Element borders |
+
+If you set `use_theme: false`, the card uses classic blue color (#4a90e2).
+
+## 🔧 Compatibility
+
+- **Home Assistant**: 2021.12+
+- **Masonry view**: ✅ Supports getCardSize()
+- **Sections view**: ✅ Supports getGridOptions()
+- **Grid view**: ✅ Respects actual dimensions
+- **Mobile**: ✅ Fully responsive
+- **Themes**: ✅ Supports HA themes
+
+## 📱 Tips
+
+1. **Units**: Card expects values in m³ (cubic meters)
+2. **Decimal places**: Display shows 5 digits, dials show 3 decimal places
+3. **Device class**: We recommend `device_class: water` and `state_class: total_increasing`
+4. **Cache**: Clear browser cache after installation (Ctrl+F5)
+5. **YAML editor**: Card only supports YAML editor, not visual editor
+
+## 🐛 Troubleshooting
+
+### Card doesn't display
+- Check that `water-meter-card.js` is in `/config/www/`
+- Verify that resource is added in `configuration.yaml`
+- Clear browser cache (Ctrl+F5)
+- Restart Home Assistant
+
+### "entity not found" error
+- Check that entity exists in Developer Tools → States
+- Verify correct `entity` ID
+- Make sure entity returns a numeric value
+
+### Meter goes outside card
+- This bug was fixed in version 1.0.0
+- Make sure you're using the latest version
+- Clear browser cache
+
+### Visual editor error
+- This is normal - card only supports YAML editor
+- Use YAML editor for configuration
+
+## 📄 License
 
 MIT License
 
-## Autor
+## 🙏 Credits
 
-Vytvořeno pro Home Assistant komunitu 🏠💧
+Created for the Home Assistant community 🏠💧
+
+---
+
+🇬🇧 English README | [🇨🇿 Czech README](README.cs.md)
