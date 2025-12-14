@@ -161,6 +161,8 @@ class WaterMeterCard extends HTMLElement {
           border-radius: ${Math.round(16 * scale)}px;
           padding: ${spacing.containerPadding}px;
           box-shadow: ${use_theme ? 'var(--ha-card-box-shadow, 0 2px 4px rgba(0,0,0,0.1))' : '0 4px 6px rgba(0,0,0,0.1)'};
+          width: fit-content;
+          margin: 0 auto;
         }
 
         .meter-title {
@@ -541,7 +543,8 @@ class WaterMeterCard extends HTMLElement {
   }
 
   static getConfigElement() {
-    return document.createElement("water-meter-card-editor");
+    // Visual editor not implemented yet - use YAML editor
+    return undefined;
   }
 
   static getStubConfig() {
