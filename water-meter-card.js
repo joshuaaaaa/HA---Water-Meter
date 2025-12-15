@@ -148,7 +148,7 @@ class WaterMeterCard extends HTMLElement {
       <style>
         :host {
           display: block;
-          padding: 16px;
+          padding: ${Math.round(16 * scale)}px;
           --card-background: ${use_theme ? 'var(--ha-card-background, var(--card-background-color, #ffffff))' : '#ffffff'};
           --primary-text: ${use_theme ? 'var(--primary-text-color, #333)' : '#333'};
           --secondary-text: ${use_theme ? 'var(--secondary-text-color, #666)' : '#666'};
@@ -166,6 +166,7 @@ class WaterMeterCard extends HTMLElement {
           padding: ${spacing.containerPadding}px;
           box-shadow: ${use_theme ? 'var(--ha-card-box-shadow, 0 2px 4px rgba(0,0,0,0.1))' : '0 4px 6px rgba(0,0,0,0.1)'};
           width: fit-content;
+          min-height: ${meterSize + spacing.containerPadding * 2 + fontSize.title + spacing.titleMargin}px;
           margin: 0 auto;
         }
 
