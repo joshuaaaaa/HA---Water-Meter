@@ -372,22 +372,22 @@ class WaterMeterCard extends HTMLElement {
 
         .sub-dial-marker {
           position: absolute;
-          font-size: ${Math.round(7 * scale)}px;
-          color: var(--secondary-text);
+          font-size: ${Math.round(6 * scale)}px;
+          color: var(--primary-text);
           font-weight: bold;
-          transform-origin: center;
+          line-height: 1;
         }
 
-        .sub-dial-marker-0 { top: 8%; left: 50%; transform: translateX(-50%); }
-        .sub-dial-marker-1 { top: 15%; right: 20%; }
-        .sub-dial-marker-2 { top: 30%; right: 10%; }
-        .sub-dial-marker-3 { top: 50%; right: 8%; transform: translateY(-50%); }
-        .sub-dial-marker-4 { bottom: 30%; right: 10%; }
-        .sub-dial-marker-5 { bottom: 15%; right: 20%; }
-        .sub-dial-marker-6 { bottom: 8%; left: 50%; transform: translateX(-50%); }
-        .sub-dial-marker-7 { bottom: 15%; left: 20%; }
-        .sub-dial-marker-8 { bottom: 30%; left: 10%; }
-        .sub-dial-marker-9 { top: 50%; left: 8%; transform: translateY(-50%); }
+        .sub-dial-marker-0 { top: 5%; left: 50%; transform: translateX(-50%); }
+        .sub-dial-marker-1 { top: 8%; right: 18%; }
+        .sub-dial-marker-2 { top: 22%; right: 8%; }
+        .sub-dial-marker-3 { top: 42%; right: 3%; }
+        .sub-dial-marker-4 { bottom: 35%; right: 5%; }
+        .sub-dial-marker-5 { bottom: 20%; right: 12%; }
+        .sub-dial-marker-6 { bottom: 5%; left: 50%; transform: translateX(-50%); }
+        .sub-dial-marker-7 { bottom: 20%; left: 12%; }
+        .sub-dial-marker-8 { bottom: 35%; left: 5%; }
+        .sub-dial-marker-9 { top: 42%; left: 3%; }
 
         .specs {
           position: absolute;
@@ -450,7 +450,15 @@ class WaterMeterCard extends HTMLElement {
               <div class="sub-dial">
                 <div class="sub-dial-markers">
                   <span class="sub-dial-marker sub-dial-marker-0">0</span>
+                  <span class="sub-dial-marker sub-dial-marker-1">1</span>
+                  <span class="sub-dial-marker sub-dial-marker-2">2</span>
+                  <span class="sub-dial-marker sub-dial-marker-3">3</span>
+                  <span class="sub-dial-marker sub-dial-marker-4">4</span>
                   <span class="sub-dial-marker sub-dial-marker-5">5</span>
+                  <span class="sub-dial-marker sub-dial-marker-6">6</span>
+                  <span class="sub-dial-marker sub-dial-marker-7">7</span>
+                  <span class="sub-dial-marker sub-dial-marker-8">8</span>
+                  <span class="sub-dial-marker sub-dial-marker-9">9</span>
                 </div>
                 <div class="sub-dial-pointer" id="dial-0001"></div>
                 <div class="sub-dial-center"></div>
@@ -459,7 +467,15 @@ class WaterMeterCard extends HTMLElement {
               <div class="sub-dial">
                 <div class="sub-dial-markers">
                   <span class="sub-dial-marker sub-dial-marker-0">0</span>
+                  <span class="sub-dial-marker sub-dial-marker-1">1</span>
+                  <span class="sub-dial-marker sub-dial-marker-2">2</span>
+                  <span class="sub-dial-marker sub-dial-marker-3">3</span>
+                  <span class="sub-dial-marker sub-dial-marker-4">4</span>
                   <span class="sub-dial-marker sub-dial-marker-5">5</span>
+                  <span class="sub-dial-marker sub-dial-marker-6">6</span>
+                  <span class="sub-dial-marker sub-dial-marker-7">7</span>
+                  <span class="sub-dial-marker sub-dial-marker-8">8</span>
+                  <span class="sub-dial-marker sub-dial-marker-9">9</span>
                 </div>
                 <div class="sub-dial-pointer" id="dial-001"></div>
                 <div class="sub-dial-center"></div>
@@ -468,7 +484,15 @@ class WaterMeterCard extends HTMLElement {
               <div class="sub-dial">
                 <div class="sub-dial-markers">
                   <span class="sub-dial-marker sub-dial-marker-0">0</span>
+                  <span class="sub-dial-marker sub-dial-marker-1">1</span>
+                  <span class="sub-dial-marker sub-dial-marker-2">2</span>
+                  <span class="sub-dial-marker sub-dial-marker-3">3</span>
+                  <span class="sub-dial-marker sub-dial-marker-4">4</span>
                   <span class="sub-dial-marker sub-dial-marker-5">5</span>
+                  <span class="sub-dial-marker sub-dial-marker-6">6</span>
+                  <span class="sub-dial-marker sub-dial-marker-7">7</span>
+                  <span class="sub-dial-marker sub-dial-marker-8">8</span>
+                  <span class="sub-dial-marker sub-dial-marker-9">9</span>
                 </div>
                 <div class="sub-dial-pointer" id="dial-01"></div>
                 <div class="sub-dial-center"></div>
@@ -477,7 +501,15 @@ class WaterMeterCard extends HTMLElement {
               <div class="sub-dial">
                 <div class="sub-dial-markers">
                   <span class="sub-dial-marker sub-dial-marker-0">0</span>
+                  <span class="sub-dial-marker sub-dial-marker-1">1</span>
+                  <span class="sub-dial-marker sub-dial-marker-2">2</span>
+                  <span class="sub-dial-marker sub-dial-marker-3">3</span>
+                  <span class="sub-dial-marker sub-dial-marker-4">4</span>
                   <span class="sub-dial-marker sub-dial-marker-5">5</span>
+                  <span class="sub-dial-marker sub-dial-marker-6">6</span>
+                  <span class="sub-dial-marker sub-dial-marker-7">7</span>
+                  <span class="sub-dial-marker sub-dial-marker-8">8</span>
+                  <span class="sub-dial-marker sub-dial-marker-9">9</span>
                 </div>
                 <div class="sub-dial-pointer" id="dial-1"></div>
                 <div class="sub-dial-center"></div>
