@@ -558,35 +558,33 @@ class WaterMeterCard extends HTMLElement {
       }
     }
 
-    // Update sub-dials (rotating pointers)
-    const decimals = value - Math.floor(value);
-
-    // x0.001 dial (rotates 0-9)
-    const dial0001 = this.shadowRoot.getElementById('dial-0001');
-    if (dial0001) {
-      const value0001 = (decimals * 1000) % 10;
-      dial0001.style.transform = `rotate(${value0001 * 36}deg)`;
-    }
-
-    // x0.01 dial
-    const dial001 = this.shadowRoot.getElementById('dial-001');
-    if (dial001) {
-      const value001 = (decimals * 100) % 10;
-      dial001.style.transform = `rotate(${value001 * 36}deg)`;
-    }
-
-    // x0.1 dial
-    const dial01 = this.shadowRoot.getElementById('dial-01');
-    if (dial01) {
-      const value01 = (decimals * 10) % 10;
-      dial01.style.transform = `rotate(${value01 * 36}deg)`;
-    }
-
-    // x1 dial (ones position)
+    // Update sub-dials (rotating pointers) - each shows a digit from the total value
+    // x1 dial - units digit (poslední cifra)
     const dial1 = this.shadowRoot.getElementById('dial-1');
     if (dial1) {
       const value1 = Math.floor(value) % 10;
       dial1.style.transform = `rotate(${value1 * 36}deg)`;
+    }
+
+    // x0.1 dial - tens digit (druhá cifra zprava - desítky)
+    const dial01 = this.shadowRoot.getElementById('dial-01');
+    if (dial01) {
+      const value01 = Math.floor(value / 10) % 10;
+      dial01.style.transform = `rotate(${value01 * 36}deg)`;
+    }
+
+    // x0.01 dial - hundreds digit (třetí cifra zprava - stovky)
+    const dial001 = this.shadowRoot.getElementById('dial-001');
+    if (dial001) {
+      const value001 = Math.floor(value / 100) % 10;
+      dial001.style.transform = `rotate(${value001 * 36}deg)`;
+    }
+
+    // x0.001 dial - thousands digit (čtvrtá cifra zprava - tisíce)
+    const dial0001 = this.shadowRoot.getElementById('dial-0001');
+    if (dial0001) {
+      const value0001 = Math.floor(value / 1000) % 10;
+      dial0001.style.transform = `rotate(${value0001 * 36}deg)`;
     }
   }
 
