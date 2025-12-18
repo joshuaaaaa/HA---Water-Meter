@@ -387,19 +387,18 @@ class WaterMeterCard extends HTMLElement {
           z-index: 0;
           left: 50%;
           top: 50%;
-          transform-origin: center;
         }
 
-        .sub-dial-marker-0 { transform: rotate(0deg) translateY(-${Math.round(16 * scale)}px); }
-        .sub-dial-marker-1 { transform: rotate(36deg) translateY(-${Math.round(16 * scale)}px) rotate(-36deg); }
-        .sub-dial-marker-2 { transform: rotate(72deg) translateY(-${Math.round(16 * scale)}px) rotate(-72deg); }
-        .sub-dial-marker-3 { transform: rotate(108deg) translateY(-${Math.round(16 * scale)}px) rotate(-108deg); }
-        .sub-dial-marker-4 { transform: rotate(144deg) translateY(-${Math.round(16 * scale)}px) rotate(-144deg); }
-        .sub-dial-marker-5 { transform: rotate(180deg) translateY(-${Math.round(16 * scale)}px) rotate(-180deg); }
-        .sub-dial-marker-6 { transform: rotate(216deg) translateY(-${Math.round(16 * scale)}px) rotate(-216deg); }
-        .sub-dial-marker-7 { transform: rotate(252deg) translateY(-${Math.round(16 * scale)}px) rotate(-252deg); }
-        .sub-dial-marker-8 { transform: rotate(288deg) translateY(-${Math.round(16 * scale)}px) rotate(-288deg); }
-        .sub-dial-marker-9 { transform: rotate(324deg) translateY(-${Math.round(16 * scale)}px) rotate(-324deg); }
+        .sub-dial-marker-0 { transform: translate(-50%, -50%) rotate(0deg) translateY(-${Math.round(16 * scale)}px); }
+        .sub-dial-marker-1 { transform: translate(-50%, -50%) rotate(36deg) translateY(-${Math.round(16 * scale)}px) rotate(-36deg); }
+        .sub-dial-marker-2 { transform: translate(-50%, -50%) rotate(72deg) translateY(-${Math.round(16 * scale)}px) rotate(-72deg); }
+        .sub-dial-marker-3 { transform: translate(-50%, -50%) rotate(108deg) translateY(-${Math.round(16 * scale)}px) rotate(-108deg); }
+        .sub-dial-marker-4 { transform: translate(-50%, -50%) rotate(144deg) translateY(-${Math.round(16 * scale)}px) rotate(-144deg); }
+        .sub-dial-marker-5 { transform: translate(-50%, -50%) rotate(180deg) translateY(-${Math.round(16 * scale)}px) rotate(-180deg); }
+        .sub-dial-marker-6 { transform: translate(-50%, -50%) rotate(216deg) translateY(-${Math.round(16 * scale)}px) rotate(-216deg); }
+        .sub-dial-marker-7 { transform: translate(-50%, -50%) rotate(252deg) translateY(-${Math.round(16 * scale)}px) rotate(-252deg); }
+        .sub-dial-marker-8 { transform: translate(-50%, -50%) rotate(288deg) translateY(-${Math.round(16 * scale)}px) rotate(-288deg); }
+        .sub-dial-marker-9 { transform: translate(-50%, -50%) rotate(324deg) translateY(-${Math.round(16 * scale)}px) rotate(-324deg); }
 
         .specs {
           position: absolute;
