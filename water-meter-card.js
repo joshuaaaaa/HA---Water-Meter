@@ -226,8 +226,8 @@ class WaterMeterCard extends HTMLElement {
           position: absolute;
           top: ${Math.round(48 * scale)}px;
           display: flex;
-          justify-content: space-between;
-          width: 80%;
+          justify-content: center;
+          gap: ${Math.round(30 * scale)}px;
           font-size: ${fontSize.topInfo}px;
           color: var(--primary-text);
         }
