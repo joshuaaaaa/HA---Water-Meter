@@ -332,10 +332,9 @@ class WaterMeterCard extends HTMLElement {
           width: ${spacing.pointerWidth}px;
           height: ${spacing.pointerHeight}px;
           background: #e74c3c;
-          transform-origin: bottom center;
+          transform-origin: bottom;
           bottom: 50%;
-          left: 50%;
-          margin-left: -${Math.round(spacing.pointerWidth / 2)}px;
+          left: calc(50% - ${Math.round(spacing.pointerWidth / 2)}px);
           z-index: 10;
           border-radius: ${Math.round(1 * scale)}px ${Math.round(1 * scale)}px 0 0;
           box-shadow: 0 0 ${Math.round(3 * scale)}px rgba(231, 76, 60, 0.8);
