@@ -1,5 +1,8 @@
 # Water Meter Card for Home Assistant
 
+🇬🇧 English README | [🇨🇿 Czech README](README.cs.md)
+
+
 A custom card for Home Assistant that displays water consumption and looks exactly like a real water meter.
 
 <img width="283" height="328" alt="image" src="https://github.com/user-attachments/assets/e41c0b0f-0ee5-402c-9787-3f3469b5003e" />
@@ -128,122 +131,6 @@ entity: sensor.water_meter
 use_theme: false
 ```
 
-### With MQTT sensor
-
-```yaml
-# configuration.yaml
-mqtt:
-  sensor:
-    - name: "Cold Water Meter"
-      state_topic: "home/water/cold/total"
-      unit_of_measurement: "m³"
-      device_class: water
-      state_class: total_increasing
-```
-
-```yaml
-# ui-lovelace.yaml
-type: custom:water-meter-card
-entity: sensor.cold_water_meter
-title: Cold Water
-meter_name: COLD
-k_factor: "0.25"
-serial: "CW-2024-001"
-```
-
-### With template sensor
-
-```yaml
-# configuration.yaml
-template:
-  - sensor:
-      - name: "Total Water Consumption"
-        unit_of_measurement: "m³"
-        state: >
-          {{ (states('sensor.water_pulse_counter') | float / 1000) | round(3) }}
-        device_class: water
-        state_class: total_increasing
-```
-
-```yaml
-# ui-lovelace.yaml
-type: custom:water-meter-card
-entity: sensor.total_water_consumption
-meter_name: TOTAL
-```
-
-### Multiple meters
-
-```yaml
-# Side by side
-type: horizontal-stack
-cards:
-  - type: custom:water-meter-card
-    entity: sensor.water_meter_cold
-    title: Cold Water
-    meter_name: COLD
-    size: small
-
-  - type: custom:water-meter-card
-    entity: sensor.water_meter_hot
-    title: Hot Water
-    meter_name: HOT
-    size: small
-```
-
-### With utility meter
-
-```yaml
-# configuration.yaml
-utility_meter:
-  water_daily:
-    source: sensor.water_meter
-    cycle: daily
-
-  water_monthly:
-    source: sensor.water_meter
-    cycle: monthly
-```
-
-```yaml
-# ui-lovelace.yaml
-type: vertical-stack
-cards:
-  - type: custom:water-meter-card
-    entity: sensor.water_meter
-    title: Total Consumption
-    size: large
-
-  - type: entities
-    title: Statistics
-    entities:
-      - entity: sensor.water_daily
-        name: Today
-      - entity: sensor.water_monthly
-        name: This Month
-```
-
-## 🎨 Card Appearance
-
-```
-┌─────────────────────────┐
-│   Water Consumption     │  ← title
-└─────────────────────────┘
-    ╔═══════════════╗
-    ║ K=0.25    SN  ║  ← K-factor & serial number
-    ║    KITCHEN    ║  ← meter_name (optional)
-    ║               ║
-    ║Q₃ 2.5   1.6MPa║  ← Specifications
-    ║               ║
-    ║  [00078 m³]   ║  ← Main display (5 digits)
-    ║               ║
-    ║   ╭─╮  ╭─╮    ║
-    ║ 0 │↑│0 │↗│ 5  ║  ← Dials with pointers & markers
-    ║   ╰─╯  ╰─╯    ║
-    ║ x0.001 x0.01  ║  ← Dial labels
-    ║ ISO4064       ║
-    ╚═══════════════╝
-```
 
 ## 🔍 How Dials Work
 
@@ -322,5 +209,14 @@ MIT License
 Created for the Home Assistant community 🏠💧
 
 ---
+## Support
 
-🇬🇧 English README | [🇨🇿 Czech README](README.cs.md)
+If you like this card, please ⭐ star this repository!
+
+Found a bug or have a feature request? Please open an issue.
+
+## http://buymeacoffee.com/jakubhruby
+
+<img width="150" height="150" alt="qr-code" src="https://github.com/user-attachments/assets/2581bf36-7f7d-4745-b792-d1abaca6e57d" />
+
+---
