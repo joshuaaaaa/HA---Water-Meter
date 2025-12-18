@@ -2,7 +2,8 @@
 
 A custom card for Home Assistant that displays water consumption and looks exactly like a real water meter.
 
-![Water Meter Card](preview.png)
+<img width="283" height="328" alt="image" src="https://github.com/user-attachments/assets/e41c0b0f-0ee5-402c-9787-3f3469b5003e" />
+
 
 ## ✨ Features
 
