@@ -214,7 +214,7 @@ class WaterMeterCard extends HTMLElement {
 
         .meter-name {
           position: absolute;
-          top: ${Math.round(35 * scale)}px;
+          top: ${Math.round(18 * scale)}px;
           font-size: ${fontSize.meterName}px;
           font-weight: bold;
           color: var(--primary-text);
@@ -223,7 +223,7 @@ class WaterMeterCard extends HTMLElement {
 
         .meter-top-info {
           position: absolute;
-          top: ${Math.round(20 * scale)}px;
+          top: ${Math.round(48 * scale)}px;
           display: flex;
           justify-content: space-between;
           width: 80%;
@@ -336,6 +336,7 @@ class WaterMeterCard extends HTMLElement {
           left: 50%;
           margin-left: -${Math.max(1, Math.round(1 * scale))}px;
           transition: transform 0.3s ease;
+          z-index: 1;
         }
 
         .sub-dial-value {
@@ -378,10 +379,11 @@ class WaterMeterCard extends HTMLElement {
 
         .sub-dial-marker {
           position: absolute;
-          font-size: ${Math.round(6 * scale)}px;
+          font-size: ${Math.round(8 * scale)}px;
           color: var(--primary-text);
           font-weight: bold;
           line-height: 1;
+          z-index: 0;
         }
 
         .sub-dial-marker-0 { top: 5%; left: 50%; transform: translateX(-50%); }
@@ -429,12 +431,12 @@ class WaterMeterCard extends HTMLElement {
         <div class="meter-title">${title}</div>
         <div class="meter-face">
           <div class="meter-inner">
+            ${meter_name ? `<div class="meter-name">${meter_name}</div>` : ''}
+
             <div class="meter-top-info">
               <span class="k-factor">K=${k_factor}</span>
               <span class="serial">${serial}</span>
             </div>
-
-            ${meter_name ? `<div class="meter-name">${meter_name}</div>` : ''}
 
             <div class="specs">
               <div>Q₃ 2,5</div>
