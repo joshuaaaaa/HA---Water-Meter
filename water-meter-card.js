@@ -8,10 +8,16 @@ class WaterMeterCard extends HTMLElement {
     if (!config.entity) {
       throw new Error('Please define a water sensor entity');
     }
+
+    const needsRerender = this.config &&
+                          this.shadowRoot.innerHTML &&
+                          (this.config.size !== config.size ||
+                           this.config.use_theme !== config.use_theme);
+
     this.config = config;
 
-    // Force re-render when config changes
-    if (this.shadowRoot.innerHTML) {
+    // Always render on first load, or when config changes
+    if (!this.shadowRoot.innerHTML || needsRerender) {
       this.render();
     }
   }
