@@ -146,8 +146,9 @@ class WaterMeterCard extends HTMLElement {
       digitHeight: Math.round(32 * scale),
       digitGap: Math.round(2 * scale),
       subDialSize: Math.round(45 * scale),
-      pointerHeight: Math.round(18 * scale),
-      centerDotSize: Math.round(6 * scale)
+      pointerHeight: Math.round(16 * scale),
+      pointerWidth: Math.round(6 * scale),
+      centerDotSize: Math.round(8 * scale)
     };
 
     this.shadowRoot.innerHTML = `
@@ -328,16 +329,16 @@ class WaterMeterCard extends HTMLElement {
 
         .sub-dial-pointer {
           position: absolute;
-          width: ${Math.max(2, Math.round(3 * scale))}px;
+          width: ${spacing.pointerWidth}px;
           height: ${spacing.pointerHeight}px;
-          background: var(--accent-color);
-          transform-origin: bottom center;
-          bottom: 50%;
-          left: 50%;
-          margin-left: -${Math.max(1, Math.round(1.5 * scale))}px;
+          background: #e74c3c;
+          transform-origin: center bottom;
+          top: calc(50% - ${spacing.pointerHeight}px);
+          left: calc(50% - ${spacing.pointerWidth / 2}px);
           transition: transform 0.3s ease;
           z-index: 1;
-          border-radius: ${Math.round(2 * scale)}px;
+          border-radius: ${Math.round(1 * scale)}px ${Math.round(1 * scale)}px 0 0;
+          box-shadow: 0 0 ${Math.round(3 * scale)}px rgba(231, 76, 60, 0.8);
         }
 
         .sub-dial-value {
